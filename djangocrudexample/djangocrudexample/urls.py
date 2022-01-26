@@ -17,8 +17,15 @@ from django.contrib import admin
 from django.urls import path, re_path
 from crudexample import views
 
+from django.conf.urls import url
+from django.views.static import serve
+from django.conf import settings 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$',views.index ,name='index'),
     re_path(r'^create/$',views.create_user, name='create'),
+
+    url(r'^media/(?P<path>.*)$', serve,{'document_root':       settings.MEDIA_ROOT}), 
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}), 
 ]
